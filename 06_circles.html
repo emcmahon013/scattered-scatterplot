@@ -27,52 +27,62 @@
 							{
 								x: 5,
 								y: 20,
-								r: 10
+								r: 10,
+								color:"red"
 							},
 							{
 								x: 480,
 								y: 90,
-								r: 20
+								r: 20,
+								color:"blue"
 							},
 							{
 								x: 250,
 								y: 50,
-								r: 15
+								r: 15,
+								color:"green"
 							},
 							{
 								x: 100,
 								y: 33,
-								r: 7
+								r: 7,
+								color:"yellow"
 							},
 							{
 								x: 330,
 								y: 95,
-								r: 18
+								r: 18,
+								color:"magenta"
 							},
 							{
 								x: 410,
 								y: 12,
-								r: 19
+								r: 19,
+								color:"salmon"
 							},
 							{
 								x: 475,
 								y: 44,
-								r: 25
+								r: 25,
+								color:"aqua"
 							},
 							{
 								x: 25,
 								y: 67,
-								r: 12
+								r: 12,
+								color:"green"
 							},
 							{
 								x: 85,
 								y: 21,
-								r: 5
+								r: 5,
+								color:"red"
 							},
 							{
 								x: 220,
 								y: 88,
-								r: 3
+								r: 3,
+								color:"blue"
 							}
 						  ];
 	
@@ -87,6 +97,7 @@
 			   .enter()
 			   .append("circle")
 			   .attr("cx", function(d) {
+			   		console.log(d)
 					return d.x;
 			   })
 			   .attr("cy", function(d) {
@@ -94,6 +105,9 @@
 			   })
 			   .attr("r", function(d) {
 				   return d.r;
+			   })
+			   .style("fill", function(d) {
+			   		return d.color;
 			   });
 			
 		</script>

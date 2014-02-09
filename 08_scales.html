@@ -20,8 +20,8 @@
 		<script type="text/javascript">
 
 			//Width and height
-			var w = 500;
-			var h = 100;
+			var w = 600;
+			var h = 300;
 			
 			var dataset = [
 							{
@@ -98,8 +98,10 @@
 			   .attr("cx", w / 2)
 			   .attr("cy", h / 2)
 			   .attr("r", 1)
+
 			   .transition()
 			   .duration(2000)
+
 			   .attr("cx", function(d, i) {
 					return xScale(d.x);
 			   })

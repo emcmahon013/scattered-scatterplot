@@ -3,8 +3,9 @@
 	<head>
 		<meta charset="utf-8">
 		<title>D3: Scatterplot!</title>
-		<script type="text/javascript" src="d3.v3.js"></script>
+		<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
 		<style type="text/css">
+
 
 			body {
 				background-color: #ccc;
@@ -26,8 +27,24 @@
 			}
 			
 			.axis text {
-				font-family: sans-serif;
+				font-family: optima;
 				font-size: 11px;
+			}
+
+			.tooltip {
+				position: absolute;
+				width: 100px;
+				height: 40px;
+				font: optima;
+				font-size: 10pt;
+				padding:5px;
+				background-color:white;
+				border-radius:1px;
+				box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+				border:1px solid rgba(200,200,200,.85);
+				text-align:center;
+				pointer-events: none;
+				;
 			}
 
 		</style>
@@ -44,7 +61,11 @@
 			var w = 500;
 			var h = 300;
 			var padding = 40;
-			
+
+			var tooltip=d3.select("body").append("div")
+				.attr("class","tooltip")
+				.style("opacity",0);
+
 			//Dynamic, random dataset
 			var dataset = [];											//Initialize empty array
 			var numDataPoints = 50;										//Number of dummy data points to create
@@ -95,7 +116,27 @@
 			   .attr("cy", function(d) {
 					return yScale(d[1]);
 			   })
-			   .attr("r", 2);
+			   .attr("r", 10)
+			   .on("mouseover", function(d){
+			   		tooltip.transition()
+			   			.duration(200)
+			   			.style("opacity",1);
+			   		tooltip.html("testing tooltip"+"<br>"
+			   			+d3.format(".0f")(d3.select(this).attr("cx"))
+			   			+", "+d3.format(".0f")(d3.select(this).attr("cy")))
+			   			.style("left",d3.select(this).attr("cx")-50+"px")
+			   			.style("top",d3.select(this).attr("cy")-15+"px")
+			   		d3.select(this)
+			   			.style("opacity",.5);
+			   	})
+			   .on("mouseout",function(d){
+			   		d3.select(this)
+						.style("opacity",1)
+					tooltip.transition()
+						.duration(500)
+						.style("opacity",0)
+;
+			   });
 			
 			//Create X axis
 			svg.append("g")
@@ -124,6 +165,7 @@
 						var newNumber2 = Math.floor(Math.random() * maxRange);	//New random integer
 						dataset.push([newNumber1, newNumber2]);					//Add new number to array
 					}
+
 					
 					//Update scale domains
 					xScale.domain([0, d3.max(dataset, function(d) { return d[0]; })]);
@@ -159,3 +201,15 @@
 		</script>
 	</body>
 </html>
+
+
+		<script type="text/javascript" charset="utf-8">	
+			var resume_data=[{"id":1,"name":"Columbia University IDSE", 
+			"description":"xxxx","title":"Graduate Student",
+			"industry":1,"date_start":"2013-09","date_end":"2014-02",
+			"skill1"="d3","skilltype1":1},
+			{"id":2,"name":"Corporate Executive Board",
+			"description":"yyy","title":"Financial Services",
+			"industry":2,"date_start":"2010-07","date_end":"2014-02",
+			"skill2"="SPSS","skilltype2":2}];
+		</script>
